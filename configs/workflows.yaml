@@ -1,0 +1,171 @@
+# Workflow Definitions
+# Pre-defined multi-agent workflows
+
+workflows:
+  - name: simple_test
+    description: Simple test workflow using test agent
+    steps:
+      - step_id: echo_step
+        agent_id: test_agent
+        action: echo
+        parameters:
+          message: "Testing workflow"
+        timeout_seconds: 10
+        on_error: stop
+      
+      - step_id: add_step
+        agent_id: test_agent
+        action: add
+        parameters:
+          a: 100
+          b: 200
+        timeout_seconds: 10
+        on_error: stop
+
+  - name: market_data_pipeline
+    description: Fetch market data for multiple symbols
+    steps:
+      - step_id: fetch_aapl
+        agent_id: market_data_fetcher
+        action: fetch_price
+        parameters:
+          symbol: "AAPL"
+        timeout_seconds: 10
+        on_error: continue
+      
+      - step_id: fetch_msft
+        agent_id: market_data_fetcher
+        action: fetch_price
+        parameters:
+          symbol: "MSFT"
+        timeout_seconds: 10
+        on_error: continue
+      
+      - step_id: fetch_batch
+        agent_id: market_data_fetcher
+        action: fetch_batch
+        parameters:
+          symbols: ["GOOGL", "TSLA", "NVDA"]
+        timeout_seconds: 15
+        on_error: continue
+
+  - name: historical_analysis
+    description: Load historical data and analyze
+    steps:
+      - step_id: load_history
+        agent_id: historical_data_loader
+        action: load_history
+        parameters:
+          symbol: "AAPL"
+          start_date: "2024-01-01"
+          end_date: "2024-12-31"
+          interval: "1d"
+        timeout_seconds: 20
+        on_error: stop
+      
+      - step_id: get_dates
+        agent_id: historical_data_loader
+        action: get_available_dates
+        parameters:
+          symbol: "AAPL"
+          interval: "1d"
+        timeout_seconds: 10
+        on_error: continue
+
+  - name: daily_market_snapshot
+    description: Complete daily market data collection
+    steps:
+      - step_id: fetch_batch_prices
+        agent_id: market_data_fetcher
+        action: fetch_batch
+        parameters:
+          symbols: ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA"]
+        timeout_seconds: 20
+        on_error: continue
+      
+      - step_id: load_aapl_history
+        agent_id: historical_data_loader
+        action: update_incremental
+        parameters:
+          symbol: "AAPL"
+          interval: "1d"
+        timeout_seconds: 15
+        on_error: continue
+      
+      - step_id: load_msft_history
+        agent_id: historical_data_loader
+        action: update_incremental
+        parameters:
+          symbol: "MSFT"
+          interval: "1d"
+
+  - name: gold_silver_data_update
+    description: Update market data for Gold/Silver ETFs and macro indicators
+    steps:
+      # Load ETF data
+      - step_id: load_gld_data
+        agent_id: historical_data_loader
+        action: update_incremental
+        parameters:
+          symbol: "GLD"
+          interval: "1d"
+        timeout_seconds: 20
+        on_error: continue
+      
+      - step_id: load_slv_data
+        agent_id: historical_data_loader
+        action: update_incremental
+        parameters:
+          symbol: "SLV"
+          interval: "1d"
+        timeout_seconds: 20
+        on_error: continue
+      
+      - step_id: load_goldbees_data
+        agent_id: historical_data_loader
+        action: update_incremental
+        parameters:
+          symbol: "GOLDBEES.NS"
+          interval: "1d"
+        timeout_seconds: 20
+        on_error: continue
+      
+      - step_id: load_silverbees_data
+        agent_id: historical_data_loader
+        action: update_incremental
+        parameters:
+          symbol: "SILVERBEES.NS"
+          interval: "1d"
+        timeout_seconds: 20
+        on_error: continue
+      
+      # Load macro data
+      - step_id: load_dollar_data
+        agent_id: historical_data_loader
+        action: update_incremental
+        parameters:
+          symbol: "DX-Y.NYB"
+          interval: "1d"
+        timeout_seconds: 20
+        on_error: continue
+      
+      - step_id: load_treasury_data
+        agent_id: historical_data_loader
+        action: update_incremental
+        parameters:
+          symbol: "^TNX"
+          interval: "1d"
+        timeout_seconds: 20
+        on_error: continue
+      
+      - step_id: load_tips_data
+        agent_id: historical_data_loader
+        action: update_incremental
+        parameters:
+          symbol: "TIP"
+          interval: "1d"
+        timeout_seconds: 20
+        on_error: continue
+        timeout_seconds: 15
+        on_error: continue
+

@@ -1,0 +1,31 @@
+# Core dependencies
+anthropic>=0.18.0
+pyyaml>=6.0
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# Async support
+aiohttp>=3.9.0
+asyncio>=3.4.3
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+
+# Utilities
+rich>=13.0.0
+loguru>=0.7.0
+
+# Database (Phase 2)
+sqlalchemy>=2.0.0
+aiosqlite>=0.19.0
+greenlet>=3.3.0  # Required by SQLAlchemy async
+
+# Data processing (Phase 2)
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Market data APIs (Phase 2)
+yfinance>=0.2.36
+requests>=2.31.0

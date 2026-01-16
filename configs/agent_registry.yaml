@@ -1,0 +1,154 @@
+# Agent Registry Configuration
+# Defines all available agents and their metadata
+
+agents:
+  - agent_id: test_agent
+    name: Test Agent
+    description: Simple test agent for system verification
+    category: infrastructure
+    enabled: true
+    capabilities:
+      - name: echo
+        description: Echo back input data
+      - name: add
+        description: Add two numbers
+    subscribes_to:
+      - test_topic
+    publishes_to:
+      - test_response
+
+  # Data Agents
+  - agent_id: market_data_fetcher
+    name: Market Data Fetcher
+    description: Fetch real-time stock prices from Yahoo Finance
+    category: data
+    enabled: true
+    capabilities:
+      - name: fetch_price
+        description: Fetch current price for a symbol
+      - name: fetch_batch
+        description: Fetch prices for multiple symbols
+      - name: get_quote
+        description: Get detailed quote information
+
+  - agent_id: historical_data_loader
+    name: Historical Data Loader
+    description: Load historical OHLCV data for analysis
+    category: data
+    enabled: true
+    capabilities:
+      - name: load_history
+        description: Load historical bars for a symbol
+      - name: load_batch_history
+        description: Load history for multiple symbols
+      - name: get_available_dates
+        description: Check cached dates
+      - name: update_incremental
+        description: Fetch only new bars
+
+  # Technical Analysis Agents
+  - agent_id: moving_average_calculator
+    name: Moving Average Calculator
+    description: Calculate SMA, EMA, and detect crossovers
+    category: technical_analysis
+    enabled: true
+    capabilities:
+      - name: calculate_sma
+        description: Calculate Simple Moving Average
+      - name: calculate_ema
+        description: Calculate Exponential Moving Average
+      - name: detect_crossover
+        description: Detect MA crossover signals
+      - name: calculate_all_mas
+        description: Calculate all moving averages
+
+  - agent_id: rsi_analyzer
+    name: RSI Analyzer
+    description: Calculate RSI and detect overbought/oversold conditions
+    category: technical_analysis
+    enabled: true
+    capabilities:
+      - name: calculate_rsi
+        description: Calculate RSI for a timeframe
+      - name: detect_divergence
+        description: Detect price/RSI divergence
+      - name: identify_oversold_overbought
+        description: Identify overbought/oversold levels
+      - name: calculate_all_rsi
+        description: Calculate multi-timeframe RSI
+
+  - agent_id: support_resistance_identifier
+    name: Support/Resistance Identifier
+    description: Identify key support and resistance levels
+    category: technical_analysis
+    enabled: true
+    capabilities:
+      - name: identify_support_levels
+        description: Find support levels
+      - name: identify_resistance_levels
+        description: Find resistance levels
+      - name: calculate_proximity
+        description: Calculate proximity to levels
+      - name: identify_all_levels
+        description: Find all S/R levels
+
+  # Macro Analysis Agents
+  - agent_id: dollar_strength_analyzer
+    name: Dollar Strength Analyzer
+    description: Analyze US Dollar strength and impact on metals
+    category: macro_analysis
+    enabled: true
+    capabilities:
+      - name: analyze_dollar_index
+        description: Analyze DXY index
+      - name: calculate_dollar_momentum
+        description: Calculate dollar momentum
+      - name: assess_dollar_impact
+        description: Assess impact on precious metals
+      - name: analyze_all_dollar
+        description: Complete dollar analysis
+
+  - agent_id: real_yield_analyzer
+    name: Real Yield Analyzer
+    description: Calculate real yields and impact on metals
+    category: macro_analysis
+    enabled: true
+    capabilities:
+      - name: analyze_nominal_yields
+        description: Analyze 10Y Treasury yields
+      - name: calculate_real_yields
+        description: Calculate real yields
+      - name: assess_yield_impact
+        description: Assess impact on precious metals
+      - name: analyze_all_yields
+        description: Complete yield analysis
+
+  # Signal Generation Agents
+  - agent_id: entry_exit_signal_generator
+    name: Entry/Exit Signal Generator
+    description: Generate BUY/SELL signals with position sizing
+    category: signals
+    enabled: true
+    capabilities:
+      - name: generate_signal
+        description: Generate trading signal
+      - name: calculate_position_size
+        description: Calculate position size
+      - name: generate_trade_plan
+        description: Generate detailed trade plan
+
+  # Alert Agents
+  - agent_id: alert_manager
+    name: Alert Manager
+    description: Send beautiful terminal alerts for trading signals
+    category: alerts
+    enabled: true
+    capabilities:
+      - name: send_alert
+        description: Display formatted alert in terminal
+      - name: check_thresholds
+        description: Monitor signals and trigger alerts
+      - name: get_alert_history
+        description: Retrieve past alerts
+      - name: configure_alerts
+        description: Set alert preferences
